@@ -50,9 +50,21 @@ LotteryService {
      * @param numberOfApplicant the number of applicant
      */
     public void runLottery(int numberOfApplicant) {
-
-        //TODO
-        
+        while (true) {
+            for (int i = 0; i < 5; i++) {
+                ApplicantFinder finder = new ApplicantFinder();
+                finder.run();
+                
+                try {
+                    this.wait(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            
+            CheckWinner lottery = new CheckWinner();
+            lottery.run();
+        }
     }
 
 
@@ -64,7 +76,7 @@ LotteryService {
         @Override
         public void run() {
 
-            Human applicant = null; //TODO = humanListService.getRandomHumanForLottery();
+            Human applicant = humanListService.getRandomHumanForLottery(); //TODO = humanListService.getRandomHumanForLottery();
 
             applicantsList.add(applicant);
 
